@@ -1,0 +1,84 @@
+.Dd
+.Dt PRINTF 3
+.Os Glaux
+.Sh NAME
+.Nm fprintf ,
+.Nm printf ,
+.Nm snprintf ,
+.Nm sprintf
+.Nd Write formatted output
+.Sh SYNOPSIS
+.In stdio.h
+.Ft int
+.Fn fprintf "FILE* stream" "const char* format" ...
+.Ft int
+.Fn printf "const char* format" ...
+.Ft int
+.Fn snprintf "char* buf" "size_t size" "const char* format" ...
+.Ft int
+.Fn sprintf "char* buf" "const char* format" ...
+.Sh DESCRIPTION
+.Fn fprintf
+converts given
+.Fa format
+and outputs the result to stream pointer
+.Fa stream .
+\n
+.Fn printf
+converts given
+.Fa format
+and outputs the result to stream
+.Em stdout .
+\n
+.Fn snprintf
+converts given
+.Fa format ,
+outputs at most
+.Fa size Ns \-1
+bytes of the result to buffer
+.Fa buf
+and adds a NULL terminator.
+\n
+.Fn sprintf
+converts given
+.Fa format
+and outputs the result to buffer
+.Fa buf .
+\n
+The
+.Fa format
+string... TODO
+.Sh RETURN VALUE
+.Fn fprintf
+returns on success the number of bytes written.
+If an error occurs a negative value is returned and
+.Em errno
+is set accordingly.
+\n
+.Fn printf
+returns on success the number of bytes written.
+If an error occurs a negative value is returned and
+.Em errno
+is set accordingly.
+\n
+.Fn snprintf
+returns on success the number of bytes excluding the NULL terminator
+that would have been written if buffer
+.Fa buf
+was large enough.
+If an error occurs a negative value is returned and
+.Em errno
+is set accordingly.
+\n
+.Fn sprintf
+returns on success the number of bytes written excluding the NULL terminator.
+If an error occurs a negative value is returned and
+.Em errno
+is set accordingly.
+.Sh SAFETY
+.Fn snprintf
+can split output as it is possible for it to extend beyond
+.Fa size .
+\n
+.Fn sprintf
+can corrupt memory as the mumber of bytes to write is not specified.
