@@ -1,0 +1,75 @@
+The Glaux Operating System Project
+==================================
+
+Glaux is free software, originally written by Alexandros Alexandrou.
+It comes only in i686 for now. Support for x86_64 is planned to be added.
+
+
+Contact
+=======
+
+Our website is http://glaux-os.org
+Our IRC channel is #glaux-os on irc.freenode.net
+You can email the main developer at glauxosdever@glaux-os.org
+
+
+Building
+========
+
+To build Glaux you will need:
+ - Unix-like host operating system
+ - GCC cross-compiler
+ - Cross binutils
+ - GRUB2 bootloader
+ - Make
+
+Before attempting to build Glaux make sure you have built a GCC cross-compiler
+and cross binutils. If you haven't already, follow the instructions
+at http://wiki.osdev.org/GCC_Cross-Compiler to build a GCC cross-compiler
+and cross binutils for your target machine. We will assume they are installed
+in the $HOME/opt/cross/bin directory.
+
+Type in your shell:
+ $ export PATH="$HOME/opt/cross/bin:$PATH"
+to add the path of the cross executables to $PATH
+
+The GRUB2 bootloader is used by default in many popular linux distributions.
+It is ultimately planned that Glaux will eventually have its own bootloader,
+but this is probably distant future.
+
+Make should be typically present in most modern Unix-like operating systems.
+If not, just install it.
+
+As Glaux comes in i686 only, $HOST does not need to be explicitly specified,
+but in later versions you will want to build for other architectures.
+Then it will be needed to specify $HOST like this in your shell:
+ $ export HOST="i686-elf"
+
+Optionally, you will want to change compiler flags to override the default
+-Os -s flags. You will need to export $CFLAGS to the desired value.
+
+Other environmental variables include:
+ - $SYSROOT
+   Where Glaux will be installed. The default is ./sysroot
+ - $GLAUXISO
+   Where the cd-rom image will be placed. The default is ./glaux.iso
+ - $PREFIX
+   Where headers and libraries will be placed in the final system.
+   The default is /usr
+
+After this, you should be able to type:
+ $ make install
+to install Glaux in $SYSROOT directory.
+
+If you want to build a bootable cd-rom image, type:
+ $ make iso
+which will create the $GLAUXISO image.
+
+
+Cleaning
+========
+
+To remove the files produced during the build process, just type in your shell:
+ $ make clean
+
+Beware that installed files need to be removed manually.
