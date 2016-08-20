@@ -1,0 +1,227 @@
+K 25
+svn:wc:ra_dav:version-url
+V 26
+/svn/!svn/ver/63/trunk/doc
+END
+environment_setup.txt
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/60/trunk/doc/environment_setup.txt
+END
+rings.png
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/39/trunk/doc/rings.png
+END
+paging_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/39/trunk/doc/paging_bochs.png
+END
+genesis.txt
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/45/trunk/doc/genesis.txt
+END
+unifying.png
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/54/trunk/doc/unifying.png
+END
+conf.py
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/38/trunk/doc/conf.py
+END
+multitasking_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/39/trunk/doc/multitasking_bochs.png
+END
+thread_states.png
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/41/trunk/doc/thread_states.png
+END
+irqs_and_the_pit_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/39/trunk/doc/irqs_and_the_pit_bochs.png
+END
+vfs_mountpoint.png
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/39/trunk/doc/vfs_mountpoint.png
+END
+gdt_idt_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/39/trunk/doc/gdt_idt_bochs.png
+END
+pics.png
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/39/trunk/doc/pics.png
+END
+user_mode_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/39/trunk/doc/user_mode_bochs.png
+END
+page_directory.png
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/39/trunk/doc/page_directory.png
+END
+gdt_idt_gdt_format_1.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/39/trunk/doc/gdt_idt_gdt_format_1.png
+END
+virtual_memory_management.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/63/trunk/doc/virtual_memory_management.txt
+END
+gdt_idt_gdt_format_2.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/39/trunk/doc/gdt_idt_gdt_format_2.png
+END
+gdt_idt_idt_format_1.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/39/trunk/doc/gdt_idt_idt_format_1.png
+END
+the_heap.txt
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/54/trunk/doc/the_heap.txt
+END
+the_screen.txt
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/47/trunk/doc/the_screen.txt
+END
+genesis_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/39/trunk/doc/genesis_bochs.png
+END
+multithreading.txt
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/41/trunk/doc/multithreading.txt
+END
+paging_pte.png
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/39/trunk/doc/paging_pte.png
+END
+tasking_fork.png
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/39/trunk/doc/tasking_fork.png
+END
+the_screen_word_format.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/39/trunk/doc/the_screen_word_format.png
+END
+heap_format.png
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/54/trunk/doc/heap_format.png
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/38/trunk/doc/Makefile
+END
+the_heap_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/39/trunk/doc/the_heap_bochs.png
+END
+physical_memory_management.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/63/trunk/doc/physical_memory_management.txt
+END
+the_gdt_and_idt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/49/trunk/doc/the_gdt_and_idt.txt
+END
+vfs.png
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/39/trunk/doc/vfs.png
+END
+index.txt
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/56/trunk/doc/index.txt
+END
+iret.png
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/39/trunk/doc/iret.png
+END
+backtracing_and_symbol_lookup.txt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/61/trunk/doc/backtracing_and_symbol_lookup.txt
+END
+the_vfs_and_initrd_bochs.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/doc/the_vfs_and_initrd_bochs.png
+END
+irqs_and_the_pit.txt
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/60/trunk/doc/irqs_and_the_pit.txt
+END
+the_screen_screenshot.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/39/trunk/doc/the_screen_screenshot.png
+END

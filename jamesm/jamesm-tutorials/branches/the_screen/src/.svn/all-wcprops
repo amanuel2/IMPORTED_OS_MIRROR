@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/8/branches/the_screen/src
+END
+common.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/8/branches/the_screen/src/common.c
+END
+monitor.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/8/branches/the_screen/src/monitor.h
+END
+common.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/8/branches/the_screen/src/common.h
+END
+boot.s
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/8/branches/the_screen/src/boot.s
+END
+multiboot.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/8/branches/the_screen/src/multiboot.h
+END
+main.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/8/branches/the_screen/src/main.c
+END
+monitor.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/8/branches/the_screen/src/monitor.c
+END

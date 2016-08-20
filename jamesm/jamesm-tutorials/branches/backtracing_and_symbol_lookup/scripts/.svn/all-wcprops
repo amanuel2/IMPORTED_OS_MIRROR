@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/29/branches/backtracing_and_symbol_lookup/scripts
+END
+bochsrc.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/29/branches/backtracing_and_symbol_lookup/scripts/bochsrc.txt
+END
+run_bochs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/29/branches/backtracing_and_symbol_lookup/scripts/run_bochs.sh
+END
+update_image.sh
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/29/branches/backtracing_and_symbol_lookup/scripts/update_image.sh
+END

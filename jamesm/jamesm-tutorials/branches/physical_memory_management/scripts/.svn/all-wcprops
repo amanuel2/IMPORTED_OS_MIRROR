@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/25/branches/physical_memory_management/scripts
+END
+run_bochs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/25/branches/physical_memory_management/scripts/run_bochs.sh
+END
+update_image.sh
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/25/branches/physical_memory_management/scripts/update_image.sh
+END
+bochsrc.txt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/25/branches/physical_memory_management/scripts/bochsrc.txt
+END
