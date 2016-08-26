@@ -1,0 +1,315 @@
+Obsolete Stuff
+==============
+
+One of the primary design goals of Sortix is to be a modern Unix system with the
+old cruft removed. This means that some features/functions/headers in the C API
+has been removed, never implemented in the first place, or is scheduled for
+future removal. This is likely inconvenient, as a lot of programs still rely on
+these obsolete/broken features, which will have to be fixed. Additionally, it'll
+further complicate porting programs to Sortix. However, it is our belief that
+ultimately such removals will be beneficial and this is merely a transitional
+period. In almost all cases, we have made available superior interfaces that can
+be used instead.
+
+It may cause problems for portable programs that these features cannot or should
+not be used, as lesser operating systems may not implement the modern
+replacements. Either fix such systems or add some feature detection magic.
+
+This is a list of common features that may currently be implemented, but that
+you shouldn't use and if you do, then you should fix your program before it
+breaks when the feature is finally removed.
+
+You might be tempted to use a preprocessor conditional for __sortix__ to detect
+the absence of these obsolete features and the availability of their modern
+replacements. Keep in mind that other systems may have the modern replacements
+and also may have removed features, and that they may supply other extensions to
+replace the features. If you need to be portable, you should use whatever means
+to automatically detect the availability of features at compile time, rather
+than hardcode cases for each platform, as your software is likely to be ported
+to platforms that didn't exist when you wrote your code.
+
+asctime, asctime_r
+------------------
+
+This function is fundamentally broken. It doesn't support locales, it adds some
+useless newline character at the end, the date format doesn't comply with ISO
+standards, asctime is not thread safe, and so on. Actually, the POSIX standard
+supplies code that implements the function because the format simply cannot
+change. The function was actually already deprecated back in 1989 when the
+original C standard was released. The solution is today the same as back then,
+simply use the much superior strftime function instead. asctime_r tries to make
+the function thread safe, but it doesn't fix the other broken semantics. The
+only use of this function is to participate in protocols that somehow manages to
+use asctime formatted dates, but then you might as well just paste in the POSIX
+example code and hard code it in your program.
+
+Sortix currently implement these functions for compatibility reasons.
+
+creat
+-----
+
+Use open() instead of this poorly named function. Additionally, open() has a
+similarly poorly named flag O_CREAT that does what you need.
+
+Sortix currently implement this function for compatibility reasons.
+
+ctime, ctime_r
+--------------
+
+These functions are defined in terms of asctime and asctime_r. Therefore they
+will need to be removed as well.
+
+Sortix currently implement these functions for compatibility reasons.
+
+F_GETLK, F_SETLK, F_SETLKW
+--------------------------
+
+These fcntl commands implement POSIX advisory file locking. Unfortunately, this
+standard interface is very poorly designed. In particular, if a process closes
+a file descriptor, then all locks the process has for that file is unlocked,
+even though there might not be a lock associated with that file descriptor in
+the first place. This means that if the main program locks /foo/bar and runs
+a library routine that also happen to open /foo/bar, then the advsisory lock set
+up by the main program is silently gone when when the library routine closes the
+file and returns to the main program. Additionally, the locks are attached to
+processes, rather than file descriptors. This complicates using them for threads
+and passing file locks onto child processes.
+
+Use the flock (not to be confused with lockf) call instead as it works at a file
+descriptor level.
+
+ftime
+-----
+
+Use clock_gettime instead.
+
+gethostbyname, gethostbyaddr
+----------------------------
+
+Use the protocol agnostic functions such as getaddrinfo(). For instance, if you
+want a HTTP connection to www.example.com, do you really care how the data get
+to and from there? Most of the time you want a reliable transport protocol to a
+named host, but don't care much about the low-level details. If you use these
+modern networking interfaces, then your program can use without modification
+IPv4, IPv6, or whatever new protocol is used in the future.
+
+gethostid, sethostid
+--------------------
+
+These functions are built on the assumption that 32-bits are enough such that
+each computer has an unique identity. It isn't. These functions are usually
+implemented by using the IPv4 address, which already creates conflicts because
+multiple systems can have the same LAN address. The functions are silly and any
+use of them probably is silly too.
+
+getpgrp
+-------
+
+POSIX and BSD disagree on the function prototype for getpgrp. Use getpgid
+instead, as everyone agrees on that.
+
+gets
+----
+
+Use fgets or getline instead. This function has been removed in the latest C
+standard, but most implementations carry it anyways. Curiously it is hated so
+much that some compatibility libraries such as gnulib actively use magic to add
+deprecation warnings not to use it, but these won't compile because gets isn't
+declared in any Sortix headers.
+
+gettimeofday
+------------
+
+Use clock_gettime instead.
+
+getwd
+-----
+
+Use get_current_dir_name() or getcwd() instead. Don't rely on the existence of
+PATH_MAX, but allocate buffers as needed.
+
+isascii
+-------
+
+This function is rather pointless. If we use a character encoding that wasn't
+ascii compatible, then it doesn't make sense. If we use a sane character
+encoding such as UTF-8, then you can simply check if the value is at most 127.
+
+lockf
+-----
+
+This function implements POSIX advisory locks. It suffers from the same basic
+design mistakes that the fnctl advistory lock commands (F_GETLK, F_SETLK,
+F_SETLKW) do and should be avoided for the same reasons (see above).
+
+Use the flock (not to be confused with lockf) call instead as it works at a file
+descriptor level.
+
+mktemp
+------
+
+mktemp(3) (not the mktemp(1) utility) creates a unique path name, but creates no
+file, and thus offers no guarantee that is unique with respect to other threads
+and system processes. The function is racy and dangerous.
+
+Use mkstemp(3) (or for directories mkdtemp(3)) instead.
+
+PATH_MAX
+--------
+
+There is no such limit in Sortix. The kernel might restrict the path lengths at
+some point, but that'll just be to protect against misbehaving processes. You
+can use pathconf() or fpathconf() to see if a particular path has a limit, but
+otherwise you should just allocate strings as much as needed. There should be
+functions in place so you can use paths of any length. If you really need a
+limit as a hack to fix a broken program, you can do something like:
+
+    #if !defined(PATH_MAX) && defined(__sortix__)
+    #define PATH_MAX 32768
+    #endif
+
+If there is ever going to be a path limit, it'll probably be either this value
+or higher. Ideally, your programs ought to work with paths of any reasonable
+length.
+
+putenv
+------
+
+This is a poorly designed interface for manipulating the environment which
+interacts quite badly with interfaces such as setenv and unsetenv. The major
+problem is that putenv makes the input string itself part of the environment,
+but setenv makes a copy of the input string part of the environment. This means
+that unsetenv (as well as putenv and setenv when changing an existing variable)
+has to somehow know whether the a given entry in environ was allocated by setenv
+and whether to free it. This isn't helped by the fact that the environ symbol
+is publicly accessible and callers of putenv can change the environment by
+editing the string the caller inserted. This means that the implementations of
+setenv and unsetenv must do a considerable amount of book-keeping behind the
+scenes to figure out whether a string was allocated by setenv or face memory
+leaks when environment variables are changed or unset. The solution to get rid
+of all the needless complexity putenv forces upon the other functions is simply:
+Don't provide putenv in the first place and fix any software that uses putenv to
+just call setenv instead.
+
+sdl-config
+----------
+
+This SDL utility program is basically broken for cross-compilation and seems to
+be a poor counterpart to to pkg-config. If you insist on using such config
+tools, use pkg-config instead as it causes fewer problems. If you really need a
+sdl-config script, implement it using pkg-config:
+
+    pkg-config "$@" sdl
+
+The Sortix build system actually injects such a sdl-config into the PATH to make
+sure programs don't use the wrong SDL libraries when cross-compiling.
+
+setpgrp
+-------
+
+POSIX and BSD disagree on the function prototype for setpgrp. Use setpgid
+instead, as everyone agrees on that.
+
+settimeofday
+------------
+
+Use clock_settime instead.
+
+select
+------
+
+The fd_set system is poorly designed and the FD_SETSIZE is considerably smaller
+than INT_MIN on most systems, which violates that the value of the file
+descriptor shouldn't matter as long as it is between 0 and INT_MAX. It would be
+better to use poll instead. There is also the problem that select uses struct
+timeval instead of the superior struct timespec, though pselect solves tha
+particular problem.
+
+Sortix currently provides this function for compatibility reasons.
+
+sprintf
+-------
+
+The sprintf function is dangerous as it can be hard to predict the length of the
+output string safely. A mistake can easily end in security vulnerabilities and
+undefined behavior. Use the snprintf function instead as it knows the size of
+the destination buffer and safely truncates in the error case. Such truncation
+can be detected by the cacller. Use the asprintf function or another approach
+if determinining the output length is hard.
+
+Sortix currently provides this function for compatibility reasons.
+
+strings.h
+---------
+
+There must have been some confusion back in the day since this header was
+created, rather than the functions just added to string.h. In sane
+implementations, you can just include string.h that also declares these
+functions. The strings.h header exists in Sortix for source-code compatibility,
+but don't be surprised if it just includes the regular string.h.
+
+struct timeval
+--------------
+
+This microsecond precision data structure has been fully replaced by struct
+timespec, which offers nanosecond precision. All kernel APIs use struct timespec
+exclusively.
+
+Sortix currently provides this structure for compatibility reasons.
+
+sys/param.h
+-----------
+
+This is a BSD header that contains a bunch of BSD-specific stuff and other
+miscellaneous junk. The GNU libc implementation contains some uselese macros
+that doesn't justify its existence. The header inclusion can often be deleted
+without any problems, but older systems may require its inclusion.
+
+sys/time.h
+----------
+
+You don't need this header and it'll be removed at some point. It is filled with
+obsolete functions and macros. The only reason you might want it is to get the
+declaration of struct timeval, but that data type has been replaced by struct
+timespec.
+
+Sortix currently provides this header for compatibility reasons.
+
+sys/timeb.h
+-----------
+
+This is a header that contains the ftime function that has been replaced, this
+header has been removed as well.
+
+times
+-----
+
+This function is badly designed and the whole clock_t and sysconf(_SC_CLK_TCK)
+business is insane. It doesn't help there is problem with potential overflowing
+and the accuracy of the function varies between systems. You should avoid this
+function in favor of clock_gettime and the Sortix extension clocks that provide
+the same information as struct timespecs. If you need the atomic semantics of
+times, you can use the Sortix extension timens.
+
+Sortix currently provides this function for compatibility reasons.
+
+tmpnam
+------
+
+There is an inherently race condition prone and has thread safely issues with a
+NULL argument. Use tmpfile() instead if you can do with a file whose name you do
+not know. Unfortunately, Sortix has yet no satisfying temporary file creation
+function that gives you a file and its name without having to deal with silly
+template strings and other problems.
+
+utime
+-----
+
+Use utimens instead, or perhaps the more portable utimensat.
+
+Sortix currently provides this function for compatibility reasons.
+
+utimes
+------
+
+Use utimens instead, or perhaps the more portable utimensat.

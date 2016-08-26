@@ -1,0 +1,47 @@
+The Sortix Operating System
+===========================
+
+Sortix is a small self-hosting operating-system aiming to be a clean and modern
+POSIX implementation.  It is a hobbyist operating system written from scratch
+with its own base system, including kernel and standard library, as well as
+ports of third party software.  It has a straightforward installer and is can be
+developed under itself.  Releases come with the source code in /src, ready for
+tinkering.
+
+It has been in development since 2011 by a single developer and contributors.
+Though the system is stable and capable right now, it is still early in
+development, and a number of crucial features haven't been made yet.  Releases
+are made yearly and future releases will add features such as networking, SMP,
+and USB that were skipped in favor of becoming self-hosting now.
+
+Documentation
+-------------
+
+The system is documented as manual pages.  Introductory system usage is covered
+in the user-guide(7) manual page.
+
+Links
+-----
+
+For more information, please visit the official website:
+
+  https://sortix.org/
+
+Building Sortix
+---------------
+
+Development of Sortix under itself is covered in development(7).
+
+Development from another operating system is covered in cross-development(7).
+
+You can view the cross-development(7) manual page with this command:
+
+  man share/man/man7/cross-development.7
+
+License
+-------
+
+Copyright 2011-2016 Jonas 'Sortie' Termansen and contributors.
+
+Sortix is free software licensed under the ISC license as described in the
+LICENSE file.  It also contains permissively licensed code from other projects.

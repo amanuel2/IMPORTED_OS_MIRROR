@@ -1,0 +1,281 @@
+.Dd $Mdocdate: December 29 2015 $
+.Dt CROSS-DEVELOPMENT 7
+.Os
+.Sh NAME
+.Nm cross-development
+.Nd operating system development from another operating system
+.Sh DESCRIPTION
+The
+.Xr development 7
+manual page describes the primary way of building the operating system, which
+is under itself.  The secondary way is to cross-compile it from a sufficiently
+similar operating system such as Linux with the GNU tools installed.  The build
+system assumes the presence of some GNU extensions in the standard command line
+tools.  This document will detail the process of bootstrapping a Sortix system
+from another operating system.
+.Ss Overview
+To build Sortix you need to get these programs from your operating system vendor
+or compile them yourself:
+.Bl -bullet -compact
+.It
+GRUB (for iso creation)
+.It
+xorriso (for iso creation)
+.It
+mtools (for iso creation) (if on UEFI systems)
+.El
+.Pp
+GRUB with BIOS support is required.  If you are on an UEFI system, you may need
+to install further files to get BIOS support.  For instance, on an apt-based
+system you might install the
+.Sy grub-pc-bin
+package.
+.Pp
+You will also need the source code for:
+.Bl -bullet -compact
+.It
+Sortix
+.It
+Sortix binutils
+.It
+Sortix gcc
+.El
+.Pp
+The overall process is:
+.Bl -bullet -compact
+.It
+Retrieving all the source code.
+.It
+Installing the build tools.
+.It
+Creating a system root with the system headers.
+.It
+Creating a cross-compiler.
+.It
+Cross-compiling the operating system.
+.El
+.Ss Source Code
+You can find the latest Sortix source code at
+.Lk https://sortix.org/source/
+.Pp
+You can find the latest Sortix binutils source code at
+.Lk https://sortix.org/toolchain/sortix-binutils-latest.tar.xz
+.Pp
+You can find the latest Sortix gcc source code at
+.Lk https://sortix.org/toolchain/sortix-gcc-latest.tar.xz
+.Pp
+This is a compiler toolchain that has been modified to support Sortix.  The
+toolchain is sometimes updated and you will need the latest toolchain to keep
+building the latest code.
+.Ss Variables
+This document will use meta-syntactic shell variables to denote where you have
+choice.  These are simply convenient shorthands that lets this document refer
+to your choices.  You shouldn't use real shell variables but just textually
+replace them with your choices when you run commands.
+.Bl -tag -width "$SORTIX_PLATFORM" -offset indent
+.It Sy $SORTIX
+The path to the directory containing the Sortix source code.  This could for
+instance be
+.Pa /home/user/sortix .
+.It Sy $SORTIX_PLATFORM
+The Sortix target platform.  This could for instance be
+.Sy x86_64-sortix .
+.It Sy $CROSS_PREFIX
+The directory path where the cross-toolchain will be installed.  This could
+for instance be
+.Pa /home/user/opt/x86_64-sortix .
+.El
+.Pp
+The following sections describe these variables in detail.
+.Ss Sortix Directory
+You can put the Sortix source code wherever you'd like.  It is typically git
+cloned from your home directory and the source code will appear in
+.Pa ~/sortix .
+This place will contain the operating system code.  We'll refer to that location
+as
+.Sy $SORTIX.
+.Pp
+Don't store the source code for the cross-toolchain (binutils and gcc) here.
+Store the source code for those programs somewhere else, such as in
+.Pa ~/src .
+It doesn't make any sense to store the cross toolchain within the Sortix
+directory.  The only toolchain that belongs here is the native toolchain that
+runs on Sortix (and not on your current operating system).
+.Pp
+Don't make a sortix directory and git clone inside it, you redundantly get a
+.Pa ~/sortix/sortix
+directory instead.
+.Ss Target Platform
+You need to decide what the platform your final Sortix system will run on.  You
+can currently decide between
+.Sy i686-sortix
+and
+.Sy x86_64-sortix .
+In this guide we will refer to that platform triplet as
+.Sy $SORTIX_PLATFORM .
+If you want to build another platform afterwards, then you will have to follow
+this guide again.
+.Ss Cross-Prefix
+You should install your cross-toolchain into a useful and isolated directory
+such as
+.Pa $HOME/opt/$SORTIX_PLATFORM .
+This allows you to easily dispose of the directory and keeps it isolated from
+the rest of the system.  We'll refer to that location as
+.Sy $CROSS_PREFIX.
+.Ss PATH
+You need to add
+.Pa $CROSS_PREFIX/bin
+and
+.Pa $CROSS_PREFIX/sbin
+to your
+.Ev PATH
+variable:
+.Bd -literal
+    export PATH="$CROSS_PREFIX/sbin:$CROSS_PREFIX/bin:$PATH"
+.Ed
+.Pp
+This will modify the
+.Ev PATH
+variable in this particular shell session.  You can make this permanent by
+adding that line to your
+.Pa ~/.profile
+or the applicable file for your shell and system.  Consult your shell
+documentation.  Otherwise type it in all Sortix-related shells before doing
+anything.
+.Ss Build Tools
+You need to install some additional build tools as they are needed to build the
+operating system.  The installed build tools must be in sync with the source
+code as described in
+.Xr development 7 .
+You can install the build utilities by running:
+.Bd -literal
+    cd "$SORTIX" &&
+    make clean-build-tools &&
+    make PREFIX="$CROSS_PREFIX" build-tools &&
+    make PREFIX="$CROSS_PREFIX" install-build-tools
+.Ed
+.Pp
+These tools produce platform independent output so you may wish to install them
+into
+.Pa $HOME/bin
+and
+.Pa $HOME/sbin
+or
+.Pa /usr/local/bin
+and
+.Pa /usr/local/sbin
+or where it suits you in your
+.Ev PATH .
+.Ss System Root with System Headers
+Building the compiler requires the standard library headers being available.
+This can be satisfies by creating a system root with the system headers:
+.Bd -literal
+    cd "$SORTIX" &&
+    make distclean &&
+    make sysroot-base-headers HOST=$SORTIX_PLATFORM
+.Ed
+.Pp
+This will create a system root at
+.Pa $SORTIX/sysroot .
+The system root directory is always the
+.Pa sysroot
+subdirectory of the main source code directory.
+.Ss Cross-toolchain Dependencies
+You need to install these libraries (and the development packages) before
+building binutils and gcc:
+.Bl -bullet -compact
+.It
+bison
+.It
+flex
+.It
+libgmp
+.It
+libmpfr
+.It
+libmpc
+.El
+.Pp
+Consult the official binutils and gcc documentation for the exact dependencies.
+.Ss binutils
+Assuming you extracted the binutils to
+.Pa ~/src/sortix-binutils ,
+you can build binutils out-of-directory by running:
+.Bd -literal
+    mkdir ~/src/binutils-build &&
+    cd ~/src/binutils-build &&
+    ../sortix-binutils/configure \\
+      --target=$SORTIX_PLATFORM \\
+      --with-sysroot="$SORTIX/sysroot" \\
+      --prefix="$CROSS_PREFIX" \\
+      --disable-werror &&
+    make &&
+    make install
+.Ed
+.Pp
+You can remove the temporary
+.Pa ~/src/binutils-build
+directory when finished.
+.Ss gcc
+Assuming you extracted the gcc to
+.Pa ~/src/sortix-gcc ,
+you can build gcc out-of-directory by running:
+.Bd -literal
+    mkdir ~/src/gcc-build &&
+    cd ~/src/gcc-build &&
+    ../sortix-gcc/configure \\
+      --target=$SORTIX_PLATFORM \\
+      --with-sysroot="$SORTIX/sysroot" \\
+      --prefix="$CROSS_PREFIX" \\
+      --enable-languages=c,c++ &&
+    make all-gcc all-target-libgcc &&
+    make install-gcc install-target-libgcc
+.Ed
+.Pp
+You can remove the temporary
+.Pa ~/src/gcc-build
+directory when finished.  Notice how special make targets are used to
+selectively build only parts of gcc.  It is not possible or desirable to build
+all of gcc here.
+.Ss Building Sortix
+With the build tools and cross-compiler in the
+.Ev PATH
+is it now possible to build the operating system as described in
+.Xr development 7
+by setting
+.Ev HOST
+to your value of
+.Sy $SORTIX_PLATFORM .
+This tells the build system you are cross-compiling and it will run the
+appropriate cross-compiler.  For instance, to build an bootable cdrom image
+using a
+.Sy x86_64-sortix
+cross-compiler you can run:
+.Bd -literal
+    cd "$SORTIX" &&
+    make HOST=x86_64-sortix sortix.iso
+.Ed
+.Pp
+This creates a bootable
+.Pa sortix.iso .
+See the
+.Xr development 7
+manual page for how to use the build system.
+.Ss Troubleshooting
+If producing a bootable cdrom with
+.Xr grub-mkrescue 1
+gives the error
+.Pp
+.Dl xorriso : FAILURE : Cannot find path '/efi.img' in loaded ISO image
+.Pp
+then your GRUB installation is defective.  You need to install
+.Xr mformat 1
+to use
+.Xr grub-mkrescue 1
+in your case.
+.Sh SEE ALSO
+.Xr make 1 ,
+.Xr development 7 ,
+.Xr installation 7 ,
+.Xr porting-guide 7 ,
+.Xr sysinstall 8

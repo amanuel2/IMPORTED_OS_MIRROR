@@ -1,0 +1,8 @@
+*.o
+*.tmp
+*.bin
+*.iso
+*.so
+*.a
+# Ignore dynamically generated headers.
+preproc

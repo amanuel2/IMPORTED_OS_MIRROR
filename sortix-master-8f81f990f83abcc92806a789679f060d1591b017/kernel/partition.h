@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2013, 2015 Jonas 'Sortie' Termansen.
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ * partition.h
+ * Block device representing a partition of another block device.
+ */
+
+#ifndef PARTITION_H
+#define PARTITION_H
+
+#include <sortix/kernel/refcount.h>
+#include <sortix/kernel/inode.h>
+
+namespace Sortix {
+
+class Partition : public AbstractInode
+{
+public:
+	Partition(Ref<Inode> inner_inode, off_t start, off_t length);
+	virtual ~Partition();
+
+private:
+	Ref<Inode> inner_inode;
+	off_t start;
+	off_t length;
+
+public:
+	virtual int sync(ioctx_t* ctx);
+	virtual int truncate(ioctx_t* ctx, off_t length);
+	virtual off_t lseek(ioctx_t* ctx, off_t offset, int whence);
+	virtual ssize_t pread(ioctx_t* ctx, uint8_t* buf, size_t count, off_t off);
+	virtual ssize_t pwrite(ioctx_t* ctx, const uint8_t* buf, size_t count,
+	                       off_t off);
+	virtual int stat(ioctx_t* ctx, struct stat* st);
+
+};
+
+} // namespace Sortix
+
+#endif

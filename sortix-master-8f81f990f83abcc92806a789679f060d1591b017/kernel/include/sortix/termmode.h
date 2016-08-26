@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2012, 2015, 2016 Jonas 'Sortie' Termansen.
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ * sortix/termmode.h
+ * Defines constants for various terminal modes.
+ */
+
+#ifndef SORTIX_TERMMODE_H
+#define SORTIX_TERMMODE_H
+
+#define TERMMODE_KBKEY (1U << 0) /* ISORTIX_ENABLE_KBKEY */
+#define TERMMODE_UNICODE (1U << 1) /* !ISORTIX_DISABLE_CHARS */
+#define TERMMODE_SIGNAL (1U << 2) /* ISIG */
+#define TERMMODE_UTF8 (1U << 3) /* !ISORTIX_ENABLE_32BIT */
+#define TERMMODE_LINEBUFFER (1U << 4) /* ICANON */
+#define TERMMODE_ECHO (1U << 5) /* ECHO */
+#define TERMMODE_NONBLOCK (1U << 6) /* ISORTIX_NONBLOCK */
+#define TERMMODE_TERMIOS (1U << 7) /* !ISORTIX_TERMMODE */
+#define TERMMODE_DISABLE (1U << 8) /* !CREAD */
+#define TERMMODE_NORMAL (TERMMODE_UNICODE | TERMMODE_SIGNAL | TERMMODE_UTF8 | \
+                         TERMMODE_LINEBUFFER | TERMMODE_ECHO | TERMMODE_TERMIOS)
+
+#endif

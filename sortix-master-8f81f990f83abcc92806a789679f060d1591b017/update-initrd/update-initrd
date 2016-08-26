@@ -1,0 +1,96 @@
+#!/bin/sh -e
+# Copyright (c) 2015 Jonas 'Sortie' Termansen.
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+# update-initrd
+# Generate a mkinitrd that locates and chain boots the real root filesystem.
+
+show_version() {
+  cat << EOF
+$0 (Sortix)
+EOF
+  exit 0
+}
+
+
+show_help() {
+  cat << EOF
+Usage: $0 [OPTION]...
+
+Generate a mkinitrd that locates and chain boots the real root filesystem.
+
+Configuration:
+  --help              display this help and exit
+  --version           display version information and exit
+  --sysroot=DIR       operate on this root filesystem [/]
+EOF
+  exit 0
+}
+
+sysroot=
+
+dashdash=
+previous_option=
+for argument do
+  if test -n "$previous_option"; then
+    eval $previous_option=\$argument
+    previous_option=
+    continue
+  fi
+  case $argument in
+  *=?*) parameter=$(expr "X$argument" : '[^=]*=\(.*\)') ;;
+  *=)   parameter= ;;
+  *)    parameter=yes ;;
+  esac
+  case $dashdash$argument in
+  --) dashdash=yes ;;
+  --sysroot=*) sysroot=$parameter ;;
+  --sysroot) previous_option=sysroot ;;
+  --help) show_help ;;
+  --version) show_version ;;
+  -*) echo "$0: unrecognized option $argument" >&2
+      $option_checking && exit 1 ;;
+  *) echo "$0: unexpected operand $argument" >&2
+     exit 1 ;;
+  esac
+done
+
+if [ ! -e "$sysroot/etc/fstab" ]; then
+  echo "$0: $sysroot/etc/fstab: Need a filesystem table to make an initrd" >&2
+  exit 1
+fi
+sysmerge=false
+exec_prefix="$sysroot"
+if [ -d "$sysroot/sysmerge" ]; then
+  sysmerge=true
+  exec_prefix="$sysroot/sysmerge"
+fi
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT HUP INT QUIT TERM
+mkdir "$tmp/bin"
+mkdir "$tmp/sbin"
+cp "$exec_prefix/sbin/init" "$tmp/sbin"
+cp "$exec_prefix/sbin/extfs" "$tmp/sbin"
+test -f "$exec_prefix/sbin/fsck.ext2" &&
+cp "$exec_prefix/sbin/fsck.ext2" "$tmp/sbin"
+mkdir "$tmp/etc"
+cp "$sysroot/etc/fstab" "$tmp/etc/fstab"
+mkdir "$tmp/etc/init"
+if $sysmerge; then
+  echo chain-merge > "$tmp/etc/init/target"
+else
+  echo chain > "$tmp/etc/init/target"
+fi
+mkdir -p "$sysroot/boot"
+mkinitrd --format=sortix-initrd-2 "$tmp" -o "$sysroot/boot/sortix.initrd" > /dev/null

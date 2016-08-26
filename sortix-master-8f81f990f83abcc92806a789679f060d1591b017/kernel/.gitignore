@@ -1,0 +1,11 @@
+*.o
+*.tmp
+*.bin
+*.iso
+*.so
+*.a
+*.initrd
+*.out
+kb/default-kblayout
+kb/default-kblayout.h
+vgafont.h

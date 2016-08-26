@@ -1,0 +1,13 @@
+/*.o
+/*.tmp
+/*.bin
+/*.iso
+/*.so
+/*.a
+builds
+sysroot
+sysroot.destdir
+sysroot-overlay
+release
+ports
+repository
