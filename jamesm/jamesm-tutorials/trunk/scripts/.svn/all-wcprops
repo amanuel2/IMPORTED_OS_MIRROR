@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/53/trunk/scripts
+END
+run_bochs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/4/trunk/scripts/run_bochs.sh
+END
+update_image.sh
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/3/trunk/scripts/update_image.sh
+END
+install.py
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/53/trunk/scripts/install.py
+END
+bochsrc.txt
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/38/trunk/scripts/bochsrc.txt
+END

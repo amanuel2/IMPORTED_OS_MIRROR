@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/17/branches/the_gdt_and_idt
+END
+link.ld
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/10/branches/the_gdt_and_idt/link.ld
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/17/branches/the_gdt_and_idt/Makefile
+END
+jamesm-tutorials.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/10/branches/the_gdt_and_idt/jamesm-tutorials.tar.gz
+END
+floppy.img
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/10/branches/the_gdt_and_idt/floppy.img
+END

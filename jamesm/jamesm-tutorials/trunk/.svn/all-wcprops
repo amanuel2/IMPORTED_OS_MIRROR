@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 22
+/svn/!svn/ver/68/trunk
+END
+jamesm-tutorials.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/jamesm-tutorials.tar.gz
+END
+floppy.img
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/68/trunk/floppy.img
+END
+link.ld
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/4/trunk/link.ld
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/68/trunk/Makefile
+END

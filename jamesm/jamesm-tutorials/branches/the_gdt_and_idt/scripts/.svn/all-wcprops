@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/10/branches/the_gdt_and_idt/scripts
+END
+bochsrc.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/10/branches/the_gdt_and_idt/scripts/bochsrc.txt
+END
+run_bochs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/10/branches/the_gdt_and_idt/scripts/run_bochs.sh
+END
+update_image.sh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/10/branches/the_gdt_and_idt/scripts/update_image.sh
+END

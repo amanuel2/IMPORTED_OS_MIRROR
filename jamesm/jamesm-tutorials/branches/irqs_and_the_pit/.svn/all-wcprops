@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/28/branches/irqs_and_the_pit
+END
+link.ld
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/28/branches/irqs_and_the_pit/link.ld
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/28/branches/irqs_and_the_pit/Makefile
+END
+i686-xcompiler-cygwin.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/28/branches/irqs_and_the_pit/i686-xcompiler-cygwin.tar.gz
+END
+jamesm-tutorials.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/28/branches/irqs_and_the_pit/jamesm-tutorials.tar.gz
+END
+floppy.img
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/28/branches/irqs_and_the_pit/floppy.img
+END

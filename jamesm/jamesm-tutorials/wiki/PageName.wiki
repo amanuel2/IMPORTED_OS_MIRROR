@@ -1,0 +1,22 @@
+#summary Chapter listing
+
+  # Environment setup - done
+  # Genesis - done
+  # The screen - done
+  # The GDT and IDT - done
+  # IRQs and the PIT - done
+  # Debugging and symbol lookup - done
+  # Virtual memory management - done
+  # Physical memory management - done
+  # The heap - not reviewed
+  # Multithreading - not reviewed
+  # Locking and queued semaphores - work in progress
+  # Initial ramdisk - work in progress
+  # Module loading
+  # Virtual file system and device drivers
+  # Keyboard driver - not reviewed
+  # FAT driver
+  # Program loading
+  # Multiple address spaces
+  # C library
+  # Porting GNU Bash

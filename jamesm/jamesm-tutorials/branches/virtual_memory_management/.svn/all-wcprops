@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/23/branches/virtual_memory_management
+END
+link.ld
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/22/branches/virtual_memory_management/link.ld
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/22/branches/virtual_memory_management/Makefile
+END
+i686-xcompiler-cygwin.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/22/branches/virtual_memory_management/i686-xcompiler-cygwin.tar.gz
+END
+jamesm-tutorials.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/22/branches/virtual_memory_management/jamesm-tutorials.tar.gz
+END
+floppy.img
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/22/branches/virtual_memory_management/floppy.img
+END

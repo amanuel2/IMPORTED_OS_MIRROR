@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src
+END
+printk.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/printk.h
+END
+gdt.c
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/gdt.c
+END
+idt.c
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/idt.c
+END
+vsprintf.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/vsprintf.h
+END
+gdt_s.s
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/gdt_s.s
+END
+idt_s.s
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/idt_s.s
+END
+boot.s
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/10/branches/the_gdt_and_idt/src/boot.s
+END
+gdt.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/gdt.h
+END
+multiboot.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/10/branches/the_gdt_and_idt/src/multiboot.h
+END
+main.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/main.c
+END
+idt.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/idt.h
+END
+monitor.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/10/branches/the_gdt_and_idt/src/monitor.c
+END
+common.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/10/branches/the_gdt_and_idt/src/common.c
+END
+monitor.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/10/branches/the_gdt_and_idt/src/monitor.h
+END
+common.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/common.h
+END
+printk.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/printk.c
+END
+vsprintf.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/17/branches/the_gdt_and_idt/src/vsprintf.c
+END
